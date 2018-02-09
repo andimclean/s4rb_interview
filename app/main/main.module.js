@@ -36,8 +36,8 @@ angular.module('s4rbInterviewApp')
     /* some helper functions, these maybe placed in a untility module */
 
     $scope.isSet = function (value) {
-      return typeof value != 'undefined' && value !== null;
-    }
+      return typeof value !== 'undefined' && value !== null;
+    };
 
     /* Convert the complaints and units sold into an CPMU returning "No Value" where apporiate */
     $scope.toCPMU = function (item, dp) {
@@ -60,7 +60,7 @@ angular.module('s4rbInterviewApp')
       } else {
         return "No Value";
       }
-    }
+    };
 
     /* Date formating rountines */
     $scope.formatDateYearAndMonth = function (date) {
@@ -75,7 +75,7 @@ angular.module('s4rbInterviewApp')
     $scope.formatDateYear = function (item) {
       var date = moment(item.Month);
       return date.format("YYYY");
-    }
+    };
 
     $scope.getMinMaxDate = function (items) {
       return Lazy(items).reduce((current, next) => {

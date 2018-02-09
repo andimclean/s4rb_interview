@@ -9,15 +9,6 @@
  */
 angular.module('s4rbInterviewApp')
   .controller('MonthlyCtrl', function ($scope) {
-    $scope._ourData = [];
-
-    /* Watch when the MianCtrl's data changes so we can update ourdata */
-    $scope.$watch('data', generateOurData);
-
-    $scope.getData = function () {
-      return $scope._ourData;
-    };
-
     /* convert the fetched data into a format that our view requires */
     function generateOurData() {
       $scope._ourData = $scope.makeSequence($scope.data).map((date) => {
@@ -30,6 +21,17 @@ angular.module('s4rbInterviewApp')
           return obj;
       }).toArray();
     }
+    
+    $scope._ourData = [];
+
+    /* Watch when the MianCtrl's data changes so we can update ourdata */
+    $scope.$watch('data', generateOurData);
+
+    $scope.getData = function () {
+      return $scope._ourData;
+    };
+
+    
 
     /* Perform the initial generation of our data */
     generateOurData();
