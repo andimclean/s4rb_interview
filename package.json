@@ -25,10 +25,13 @@
     "grunt-svgmin": "^2.0.0",
     "grunt-usemin": "^3.0.0",
     "grunt-wiredep": "^2.0.0",
+    "http-server": "^0.9.0",
     "jasmine-core": "^3.0.0",
     "jit-grunt": "^0.9.1",
     "jshint-stylish": "^1.0.0",
     "karma": "^2.0.0",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-firefox-launcher": "^0.1.7",
     "karma-jasmine": "^1.1.1",
     "karma-phantomjs-launcher": "^1.0.4",
     "phantomjs-prebuilt": "^2.1.16",
@@ -38,6 +41,10 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "karma start test/karma.conf.js"
+    "postinstall": "bower install",
+    "prestart": "npm install",
+    "pretest": "npm install",
+    "start": "http-server ./app -a localhost -p 8000 -c-1",
+    "test": "karma start ./karma.conf.js"
   }
 }

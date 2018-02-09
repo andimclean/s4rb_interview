@@ -8,10 +8,8 @@
  * Controller of the s4rbInterviewApp
  */
 angular.module('s4rbInterviewApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('RawCtrl', function ($scope) {
+    $scope.getData = function() {
+      return $scope.data;
+    }
   });
