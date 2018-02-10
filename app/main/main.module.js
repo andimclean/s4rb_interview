@@ -8,35 +8,21 @@
  * Controller of the s4rbInterviewApp
  */
 angular.module('s4rbInterviewApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.data = [{
-        "Quarter": "1",
-        "Month": "2012-01-01T00:00:00",
-        "Complaints": 27,
-        "UnitsSold": 4932508
-      },
-      {
-        "Quarter": "1",
-        "Month": "2012-03-01T00:00:00",
-        "Complaints": 10,
-        "UnitsSold": 824680
-      },
-      {
-        "Quarter": "2",
-        "Month": "2012-05-01T00:00:00",
-        "Complaints": 100,
-        "UnitsSold": 82680
-      }
-    ];
+  .controller('MainCtrl', function ($scope, $http) {
+    $scope.data = [];
+
+    // The URL to obtain the data from
+    const urlBase = 'http://' + window.location.hostname + ':3000';
+    // Uses $http to obtain the data, if the REST API expands it would be better to put in it's own service.
+    $scope.getCMPU = function () {
+      $http.get(urlBase + '/CPMU').then((response) => {
+        $scope.setData(response.data);
+      });
+    };
+
 
     $scope.setData = function (newData) {
       $scope.data = newData;
-    };
-
-    /* some helper functions, these maybe placed in a untility module */
-
-    $scope.isSet = function (value) {
-      return typeof value !== 'undefined' && value !== null;
     };
 
     /* Convert the complaints and units sold into an CPMU returning "No Value" where apporiate */
@@ -52,6 +38,12 @@ angular.module('s4rbInterviewApp')
           return cpmu;
         }
       }
+    };
+
+
+    /* some helper functions, these maybe better placed in a untility module */
+    $scope.isSet = function (value) {
+      return typeof value !== 'undefined' && value !== null;
     };
 
     $scope.checkValue = function (item) {
@@ -103,5 +95,6 @@ angular.module('s4rbInterviewApp')
         return Lazy([]);
       }
     };
-
+    
+    $scope.getCMPU();
   });

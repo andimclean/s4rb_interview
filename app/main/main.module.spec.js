@@ -6,28 +6,36 @@ describe('Controller: MainCtrl', function () {
   beforeEach(module('s4rbInterviewApp'));
 
   var MainCtrl,
+    $httpBackend,
     scope;
 
+  var defaultData = [{
+      "Quarter": "1",
+      "Month": "2012-01-01T00:00:00",
+      "Complaints": 27,
+      "UnitsSold": 4932508
+    },
+    {
+      "Quarter": "1",
+      "Month": "2012-03-01T00:00:00",
+      "Complaints": 10,
+      "UnitsSold": 824680
+    }
+  ];
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_) {
+
+    $httpBackend = _$httpBackend_;
+    $httpBackend.expectGET('http://localhost:3000/CPMU').respond(defaultData);
+    $httpBackend.expectGET('raw/raw.html').respond(200);
+
     scope = $rootScope.$new();
     MainCtrl = $controller('MainCtrl', {
       $scope: scope
       // place here mocked dependencies
     });
-    scope.setData([{
-        "Quarter": "1",
-        "Month": "2012-01-01T00:00:00",
-        "Complaints": 27,
-        "UnitsSold": 4932508
-      },
-      {
-        "Quarter": "1",
-        "Month": "2012-03-01T00:00:00",
-        "Complaints": 10,
-        "UnitsSold": 824680
-      }
-    ]);
+
+    $httpBackend.flush();
   }));
 
 
@@ -179,6 +187,6 @@ describe('Controller: MainCtrl', function () {
     var result = scope.makeSequence([]).toArray();
 
 
-    expect(result.length).toBe(0);
+    expect(result).toEqual([]);
   });
 });

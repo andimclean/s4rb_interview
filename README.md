@@ -9,4 +9,4 @@ Run `npm start` to run the test server. You will also need json_serve and S4RB's
 
 ## Testing
 
-Running `grunt test` will run the unit tests with karma.
+Running `npm test` will run the unit tests with karma.

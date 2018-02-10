@@ -8,11 +8,35 @@ describe('Controller: MonthlyCtrl', function () {
   var MainCtrl,
     monthlyCtrl,
     mainScope,
+    $httpBackend,
     scope;
 
 
+  var defaultData = [{
+      "Quarter": "1",
+      "Month": "2012-01-01T00:00:00",
+      "Complaints": 27,
+      "UnitsSold": 4932508
+    },
+    {
+      "Quarter": "1",
+      "Month": "2012-03-01T00:00:00",
+      "Complaints": 10,
+      "UnitsSold": 824680
+    }
+  ];
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_) {
+
+    $httpBackend = _$httpBackend_;
+    $httpBackend.expectGET('http://localhost:3000/CPMU').respond(defaultData);
+    $httpBackend.expectGET('raw/raw.html').respond(200);
+
+    /*
+      It is expected that the Monthly Controller will be used inside the Main Controller.
+      So we need to make sure that both controllers are setup.
+    */
+
     mainScope = $rootScope.$new();
     MainCtrl = $controller('MainCtrl', {
       $scope: mainScope
@@ -21,25 +45,12 @@ describe('Controller: MonthlyCtrl', function () {
     monthlyCtrl = $controller('MonthlyCtrl', {
       $scope: scope
     });
-    scope.setData([{
-        "Quarter": "1",
-        "Month": "2012-01-01T00:00:00",
-        "Complaints": 27,
-        "UnitsSold": 4932508
-      },
-      {
-        "Quarter": "1",
-        "Month": "2012-03-01T00:00:00",
-        "Complaints": 10,
-        "UnitsSold": 824680
-      }
-    ]);
 
-    scope.$digest();
-
+    // Make sure that any http requests are fulfilled.
+    $httpBackend.flush();
   }));
 
-
+  // Check that toCPMU in base ctrl still works
   it('should return 1 CPMU when give a million units and 1 complaint', function () {
     var result = scope.toCPMU({
       Complaints: 1,

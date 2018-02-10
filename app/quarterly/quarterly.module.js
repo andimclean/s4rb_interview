@@ -40,7 +40,8 @@ angular.module('s4rbInterviewApp')
             "Month": next.Month,
             "Complaints": 0,
             "UnitsSold": 0
-          }
+          };
+          
           if (!item.Quarter) {
             item.Quarter = parseInt(next.Quarter);
           }
@@ -57,7 +58,4 @@ angular.module('s4rbInterviewApp')
         // Convert sequence to an Array
       ).values().toArray();
     }
-
-    /* Perform the initial generation of our data */
-    generateOurData();
   });

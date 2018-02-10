@@ -31,7 +31,10 @@ angular
         templateUrl: 'quarterly/quarterly.html',
         controller: 'QuarterlyCtrl'
       })
-
+      .when('/about', {
+        templateUrl: 'about/about.html',
+        controller: 'MainCtrl'
+      })
       .otherwise({
         redirectTo: '/raw'
       });
