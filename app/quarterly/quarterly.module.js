@@ -49,11 +49,12 @@ angular.module('s4rbInterviewApp')
       $scope.graphData = [{
         color: ['lightblue'],
         values: Lazy($scope._ourData).map(item => {
-        return {
-          Month: item.Month,
-          Cpmu: $scope.toCPMU(item)
-        };
-      }).toArray()}];
+          return {
+            Month: item.Month,
+            Cpmu: $scope.toCPMU(item)
+          };
+        }).toArray()
+      }];
     });
 
     $scope.getData = function () {
@@ -76,20 +77,16 @@ angular.module('s4rbInterviewApp')
         .reduce((current, next) => {
           var key = $scope.formatDateYearQuarter(next);
           var item = current[key] || {
-            "Quarter": next.Quarter,
+            "Quarter": $scope.quarterFromMonth(next),
             "Month": next.Month,
-            "Complaints": 0,
-            "UnitsSold": 0
           };
 
-          if (!item.Quarter) {
-            item.Quarter = parseInt(next.Quarter);
-          }
           if (next.Complaints) {
-            item.Complaints += parseInt(next.Complaints);
+            item.Complaints = (item.Complaints || 0) + parseInt(next.Complaints);
+
           }
           if (next.UnitsSold) {
-            item.UnitsSold += parseInt(next.UnitsSold);
+            item.UnitsSold = (item.UnitsSold || 0) + parseInt(next.UnitsSold);
           }
 
           current[key] = item;

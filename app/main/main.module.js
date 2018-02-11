@@ -86,6 +86,10 @@ angular.module('s4rbInterviewApp')
       return date.format("YYYY");
     };
 
+    $scope.quarterFromMonth = function(item) {
+      var date = moment(item.Month);
+      return Math.floor(parseInt(date.month() / 3) + 1)
+    }
     $scope.getMinMaxDate = function (items) {
       return Lazy(items).reduce((current, next) => {
         var date = moment(next.Month);

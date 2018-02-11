@@ -22,6 +22,12 @@ describe('Controller: QuarterlyCtrl', function () {
       "Month": "2012-03-01T00:00:00",
       "Complaints": 10,
       "UnitsSold": 824680
+    },
+    {
+      "Quarter": "3",
+      "Month": "2012-07-01T00:00:00",
+      "Complaints": 10,
+      "UnitsSold": 824680
     }
   ];
   // Initialize the controller and a mock scope
@@ -63,10 +69,21 @@ describe('Controller: QuarterlyCtrl', function () {
   it('should return an array with 3 items in it with months 1-3 of 2012', function () {
     var expected = [{
       Month: "2012-01-01T00:00:00",
-      Quarter: '1',
+      Quarter: 1,
       Complaints: defaultData[0].Complaints + defaultData[1].Complaints,
-      UnitsSold: defaultData[0].UnitsSold + defaultData[1].Complaints
-    }];
+      UnitsSold: defaultData[0].UnitsSold + defaultData[1].UnitsSold
+    },
+    {
+      Month: "2012-04-01T00:00:00",
+      Quarter: 2,
+    },
+    {
+      Month: "2012-07-01T00:00:00",
+      Quarter: 3,
+      Complaints: defaultData[2].Complaints,
+      UnitsSold: defaultData[2].UnitsSold
+    }
+  ];
 
     var result = scope.getData();
 

@@ -189,4 +189,19 @@ describe('Controller: MainCtrl', function () {
 
     expect(result).toEqual([]);
   });
+
+  it('should expect the correct quarter for every month in a year',function(){
+    expect(scope.quarterFromMonth({Month:"2012-01-01T00:00:00"})).toBe(1);
+    expect(scope.quarterFromMonth({Month:"2012-02-01T00:00:00"})).toBe(1);
+    expect(scope.quarterFromMonth({Month:"2012-03-01T00:00:00"})).toBe(1);
+    expect(scope.quarterFromMonth({Month:"2012-04-01T00:00:00"})).toBe(2);
+    expect(scope.quarterFromMonth({Month:"2012-05-01T00:00:00"})).toBe(2);
+    expect(scope.quarterFromMonth({Month:"2012-06-01T00:00:00"})).toBe(2);
+    expect(scope.quarterFromMonth({Month:"2012-07-01T00:00:00"})).toBe(3);
+    expect(scope.quarterFromMonth({Month:"2012-08-01T00:00:00"})).toBe(3);
+    expect(scope.quarterFromMonth({Month:"2012-09-01T00:00:00"})).toBe(3);
+    expect(scope.quarterFromMonth({Month:"2012-10-01T00:00:00"})).toBe(4);
+    expect(scope.quarterFromMonth({Month:"2012-11-01T00:00:00"})).toBe(4);
+    expect(scope.quarterFromMonth({Month:"2012-12-01T00:00:00"})).toBe(4);
+  });
 });
