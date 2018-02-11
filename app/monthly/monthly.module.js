@@ -56,7 +56,7 @@ angular.module('s4rbInterviewApp')
       }
     };
 
-    /* Watch when the MianCtrl's data changes so we can update ourdata */
+    /* Watch when the MainCtrl's data changes so we can update ourdata */
     $scope.$watch('data', generateOurData);
 
     $scope.getData = function () {
