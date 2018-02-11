@@ -18,11 +18,43 @@ angular.module('s4rbInterviewApp')
           }) || {
             Month: date.format("YYYY-MM-DDT00:00:00")
           };
-          return obj;
+        return obj;
       }).toArray();
     }
-    
+
     $scope._ourData = [];
+    $scope.graphOptions = {
+      "chart": {
+        "height": 50,
+        "type": "historicalBarChart",
+        "margin": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "showValues": false,
+        "x": function (d) {
+          return (new Date(d.Month)).getTime();
+        },
+        "y": function (d) {
+          return d.Cpmu;
+        },
+        "duration": 100,
+        showXAxis: false,
+        showYAxis: false,
+        xAxis: {
+          tickFormat: function (d) {
+            return d3.time.format('%x')(new Date(d))
+          }
+        },
+        tooltip: {
+          keyFormatter: function (d) {
+            return d3.time.format('%x')(new Date(d));
+          }
+        }
+      }
+    };
 
     /* Watch when the MianCtrl's data changes so we can update ourdata */
     $scope.$watch('data', generateOurData);
@@ -31,7 +63,7 @@ angular.module('s4rbInterviewApp')
       return $scope._ourData;
     };
 
-    
+
 
     /* Perform the initial generation of our data */
     generateOurData();

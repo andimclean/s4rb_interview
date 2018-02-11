@@ -14,7 +14,10 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'nvd3',
+    'toaster', 
+    'ngAnimate'
   ])
   .config(function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('');

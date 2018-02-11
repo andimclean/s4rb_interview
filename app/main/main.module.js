@@ -8,7 +8,7 @@
  * Controller of the s4rbInterviewApp
  */
 angular.module('s4rbInterviewApp')
-  .controller('MainCtrl', function ($scope, $http) {
+  .controller('MainCtrl', function ($scope, $http, toaster) {
     $scope.data = [];
 
     // The URL to obtain the data from
@@ -16,14 +16,31 @@ angular.module('s4rbInterviewApp')
     // Uses $http to obtain the data, if the REST API expands it would be better to put in it's own service.
     $scope.getCMPU = function () {
       $http.get(urlBase + '/CPMU').then((response) => {
-        $scope.setData(response.data);
+        $scope.data = response.data;
+
+        $scope.graphData = [{
+          color: ['lightblue'],
+          values: Lazy($scope.data).map(item => {
+            return {
+              Month: item.Month,
+              Cpmu: $scope.toCPMU(item)
+            };
+          }).toArray()
+        }];
+      }, (_) => {
+        toaster.pop({
+          type: 'error',
+          title: 'Unable to retrieve data',
+          body: 'Click to retry',
+          onHideCallback: (_) => {
+            setTimeout(_ => {
+              $scope.getCMPU();
+            }, 2000);
+          }
+        });
       });
     };
 
-
-    $scope.setData = function (newData) {
-      $scope.data = newData;
-    };
 
     /* Convert the complaints and units sold into an CPMU returning "No Value" where apporiate */
     $scope.toCPMU = function (item, dp) {
@@ -95,6 +112,6 @@ angular.module('s4rbInterviewApp')
         return Lazy([]);
       }
     };
-    
+
     $scope.getCMPU();
   });
