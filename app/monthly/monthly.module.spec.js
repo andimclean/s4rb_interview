@@ -50,16 +50,6 @@ describe('Controller: MonthlyCtrl', function () {
     $httpBackend.flush();
   }));
 
-  // Check that toCPMU in base ctrl still works
-  it('should return 1 CPMU when give a million units and 1 complaint', function () {
-    var result = scope.toCPMU({
-      Complaints: 1,
-      UnitsSold: 1000000
-    });
-
-    expect(result).toBe(1);
-  });
-
   it('should return an array with 3 items in it with months 1-3 of 2012', function () {
     var expected = [{
         Month: "2012-01-01T00:00:00",
@@ -83,4 +73,19 @@ describe('Controller: MonthlyCtrl', function () {
     expect(result).toEqual(expected);
   });
 
+  it('should return graph data for monthly', function () {
+    var expected = [{
+      color: ['lightblue'],
+      values: [{
+        "Month": "2012-01-01T00:00:00",
+        "Cpmu": 5.473888739764842
+      },
+      {
+        "Month": "2012-03-01T00:00:00",
+        "Cpmu": 12.12591550662075
+      }]
+    }];
+    console.log(scope.graphData);
+    expect(scope.graphData).toEqual(expected);
+  });
 });

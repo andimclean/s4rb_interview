@@ -56,38 +56,48 @@ describe('Controller: QuarterlyCtrl', function () {
     $httpBackend.flush();
   }));
 
-  /* Test to make sure the base CPMU function works */
-  it('should return 1 CPMU when give a million units and 1 complaint', function () {
-    var result = scope.toCPMU({
-      Complaints: 1,
-      UnitsSold: 1000000
-    });
-
-    expect(result).toBe(1);
-  });
-
   it('should return an array with 3 items in it with months 1-3 of 2012', function () {
     var expected = [{
-      Month: "2012-01-01T00:00:00",
-      Quarter: 1,
-      Complaints: defaultData[0].Complaints + defaultData[1].Complaints,
-      UnitsSold: defaultData[0].UnitsSold + defaultData[1].UnitsSold
-    },
-    {
-      Month: "2012-04-01T00:00:00",
-      Quarter: 2,
-    },
-    {
-      Month: "2012-07-01T00:00:00",
-      Quarter: 3,
-      Complaints: defaultData[2].Complaints,
-      UnitsSold: defaultData[2].UnitsSold
-    }
-  ];
+        Month: "2012-01-01T00:00:00",
+        Quarter: 1,
+        Complaints: defaultData[0].Complaints + defaultData[1].Complaints,
+        UnitsSold: defaultData[0].UnitsSold + defaultData[1].UnitsSold
+      },
+      {
+        Month: "2012-04-01T00:00:00",
+        Quarter: 2,
+      },
+      {
+        Month: "2012-07-01T00:00:00",
+        Quarter: 3,
+        Complaints: defaultData[2].Complaints,
+        UnitsSold: defaultData[2].UnitsSold
+      }
+    ];
 
     var result = scope.getData();
 
     expect(result).toEqual(expected);
   });
 
+  it('should return graph data for quarterly', function () {
+    var expected = [{
+      color: ['lightblue'],
+      values: [{
+          "Month": "2012-01-01T00:00:00",
+          "Cpmu": 6.4267486140803465
+        },
+        {
+          "Month": "2012-04-01T00:00:00",
+          "Cpmu": null
+        },
+        {
+          "Month": "2012-07-01T00:00:00",
+          "Cpmu": 12.12591550662075
+
+        }
+      ]
+    }];
+    expect(scope.graphData).toEqual(expected);
+  });
 });
