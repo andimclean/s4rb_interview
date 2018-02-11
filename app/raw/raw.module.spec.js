@@ -24,16 +24,6 @@ describe('Controller: RawCtrl', function () {
 
   }));
 
-
-  it('should return 1 CPMU when give a million units and 1 complaint', function () {
-    var result = rawScope.toCPMU({
-      Complaints: 1,
-      UnitsSold: 1000000
-    });
-
-    expect(result).toBe(1);
-  });
-
   it('should return the same data for "getData()" as is in MainCtrls data field', function() {
     var result = rawScope.getData();
 
