@@ -2,7 +2,10 @@
 <div class="container">
   <h3>Design Descisions</h3>
   <ul>
-    <li>I choose AngularJS 1.6 used by S4RB, which I had never used before to demostrate that I am capable to pick up new frameworks quickly.</li>
+    <li>I have used some functionality of Javascript ES6, so it will only work in the latest version of browsers. I assumed that
+      the main build system will take this module and pack it into a suitable form.</li>
+    <li>I choose AngularJS 1.6 used by S4RB, which I had never used before to demostrate that I am capable to pick up new frameworks
+      quickly.</li>
     <li>I used Bootstrap as it proveds a standard responsive look and feel, quickly and easily</li>
     <li>
       The controllers:
@@ -15,11 +18,12 @@
         <li>RawCtrl, MonthlyCtrl and QuarterlyCtrl provide a getData() method which returns the data in a format suitable for
           that view.The original idea was for getData() to only calculate the data when needed. I found that I needed to
           store the generated data.</li>
-        <li>MonthlyCtrl takes the data from the MainCtrl, works out the date range and generates an array with data for each Month.</li>
+        <li>MonthlyCtrl takes the data from the MainCtrl, works out the date range and generates an array with data for each
+          Month.</li>
         <li>QuarterlyCtrl takes the data from the MainCtrl, works out the date range and aggregates the data in to sections.
           Currently it does not note when any months are missing from the quarter</li>
-        <li>The CPMU is currently worked out in the view. If the computation of CPMU was more CPU intensive I would work this out
-          when generating the model for the controller. This is a basic storage/computation trade off.</li>
+        <li>The CPMU is currently worked out in the view. If the computation of CPMU was more CPU intensive I would work this
+          out when generating the model for the controller. This is a basic storage/computation trade off.</li>
       </ul>
     </li>
   </ul>
